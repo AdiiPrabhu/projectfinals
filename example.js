@@ -3,7 +3,6 @@
  * Camera Buttons
  */
 
-
 var CameraButtons = function(blueprint3d) {
 
   var orbitControls = blueprint3d.three.controls;
