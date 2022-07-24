@@ -7,7 +7,7 @@ import { BlueprintJS } from './scripts/blueprint.js';
 import { EVENT_LOADED, EVENT_NOTHING_2D_SELECTED, EVENT_CORNER_2D_CLICKED, EVENT_WALL_2D_CLICKED, EVENT_ROOM_2D_CLICKED, EVENT_WALL_CLICKED, EVENT_ROOM_CLICKED, EVENT_NO_ITEM_SELECTED, EVENT_ITEM_SELECTED, EVENT_GLTF_READY } from './scripts/core/events.js';
 import { Configuration, configDimUnit, viewBounds } from './scripts/core/configuration.js';
 import { dimMeter, TEXTURE_NO_PREVIEW } from './scripts/core/constants.js';
-import QuickSettings from 'quicksettings';
+
 
 import { Dimensioning } from './scripts/core/dimensioning.js';
 import { ParametricsInterface } from './scripts/ParametricsInterface.js';
