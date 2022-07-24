@@ -563,9 +563,6 @@ $(document).ready(function() {
 
 
 
-const fps = FPS.of({x: 0, y: 0});
-fps.start();
-
 
 let default_room = JSON.stringify(default_room_json);
 let startY = 0;
@@ -787,104 +784,6 @@ function saveBlueprint3D() {
     blueprint3d.roomplanner.exportSceneAsGTLF();
 }
 
-function exportDesignAsPackage() {
-    function getWallTextureImages(texobject, pre_image_paths) {
-        let image_paths = [];
-        if (!texobject) {
-            return image_paths;
-        }
-        if (texobject.normalmap && !pre_image_paths.includes(texobject.normalmap)) {
-            image_paths.push(texobject.normalmap);
-        }
-        if (texobject.colormap && !pre_image_paths.includes(texobject.colormap)) {
-            image_paths.push(texobject.colormap);
-        }
-        if (texobject.roughnessmap && !pre_image_paths.includes(texobject.roughnessmap)) {
-            image_paths.push(texobject.roughnessmap);
-        }
-        if (texobject.ambientmap && !pre_image_paths.includes(texobject.ambientmap)) {
-            image_paths.push(texobject.ambientmap);
-        }
-        if (texobject.bumpmap && !pre_image_paths.includes(texobject.bumpmap)) {
-            image_paths.push(texobject.bumpmap);
-        }
-        return image_paths;
-    }
-
-    let designFile = blueprint3d.model.exportSerialized();
-    let jsonDesignFile = JSON.parse(designFile);
-    let floorplan = jsonDesignFile.floorplan;
-    let items = jsonDesignFile.items;
-    let images = [];
-    let models = [];
-    let i = 0;
-    for (i = 0; i < floorplan.walls.length; i++) {
-        let wall = floorplan.walls[i];
-        images = images.concat(getWallTextureImages(wall.frontTexture, images));
-        images = images.concat(getWallTextureImages(wall.backTexture, images));
-    }
-    Object.values(floorplan.newFloorTextures).forEach((texturePack) => {
-        images = images.concat(getWallTextureImages(texturePack, images));
-        console.log("TEXTURE PACK ", texturePack);
-    });
-    // for (i = 0; i < floorplan.newFloorTextures.length; i++) {
-    //     let roomTexture = floorplan.newFloorTextures[i];
-    //     console.log(roomTexture);
-
-    // }
-    for (i = 0; i < items.length; i++) {
-        let item = items[i];
-        if (!item.isParametric && !models.includes(item.modelURL)) {
-            models.push(item.modelURL);
-        }
-    }
-
-    let fetched_image_files = [];
-    let fetched_model_files = [];
-
-    function writeZip() {
-        if (!fetched_image_files.length === images.length && !fetched_model_files.length === models.length) {
-            return;
-        }
-    }
-
-    let zip = new JSZip();
-    zip.file('design.blueprint3d', designFile);
-
-    //Adding the zip files from an url
-    //Taken from https://medium.com/@joshmarinacci/a-little-fun-with-zip-files-4058812abf92
-    for (i = 0; i < images.length; i++) {
-        let image_path = images[i];
-        const imageBlob = fetch(image_path).then(response => {
-            if (response.status === 200) {
-                return response.blob();
-            }
-            return Promise.reject(new Error(response.statusText));
-        });
-        zip.file(image_path, imageBlob); //, { base64: false }); //, { base64: true }
-    }
-    for (i = 0; i < models.length; i++) {
-        let model_path = models[i];
-        const gltfBlob = fetch(model_path).then(response => {
-            if (response.status === 200) {
-                return response.blob();
-            }
-            return Promise.reject(new Error(response.statusText));
-        });
-        zip.file(model_path, gltfBlob); //, { base64: false }); //, { base64: true }
-    }
-    zip.generateAsync({ type: "blob" }).then(function(content) {
-        FileSaver.saveAs(content, "YourBlueprintProject.zip");
-    });
-
-    // let a = window.document.createElement('a');
-    // let blob = new Blob([zip.toBuffer()], { type: 'octet/stream' });
-    // a.href = window.URL.createObjectURL(blob);
-    // a.download = 'YourBlueprintProject.zip';
-    // document.body.appendChild(a);
-    // a.click();
-    // document.body.removeChild(a);
-}
 
 // document.addEventListener('DOMContentLoaded', function() {
 console.log('ON DOCUMENT READY ');
