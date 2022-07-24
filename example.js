@@ -2,7 +2,27 @@
 /*
  * Camera Buttons
  */
-import {index} from 'js/index.js'
+
+import JSZip from "jszip";
+import FileSaver from 'file-saver';
+import FPS from 'fps-now';
+import { BlueprintJS } from './scripts/blueprint.js';
+import { EVENT_LOADED, EVENT_NOTHING_2D_SELECTED, EVENT_CORNER_2D_CLICKED, EVENT_WALL_2D_CLICKED, EVENT_ROOM_2D_CLICKED, EVENT_WALL_CLICKED, EVENT_ROOM_CLICKED, EVENT_NO_ITEM_SELECTED, EVENT_ITEM_SELECTED, EVENT_GLTF_READY } from './scripts/core/events.js';
+import { Configuration, configDimUnit, viewBounds } from './scripts/core/configuration.js';
+import { dimMeter, TEXTURE_NO_PREVIEW } from './scripts/core/constants.js';
+import QuickSettings from 'quicksettings';
+
+import { Dimensioning } from './scripts/core/dimensioning.js';
+import { ParametricsInterface } from './scripts/ParametricsInterface.js';
+
+import * as floor_textures_json from './floor_textures.json';
+import * as wall_textures_json from './wall_textures.json';
+// import * as default_room_json from './parametrics_items.json';
+// import * as default_room_json from './empty_room.json';
+// import * as default_room_json from './designWithBoundary.json';
+// import * as default_room_json from './designWithoutBoundary.json';
+import * as default_room_json from './designWithOrphanWalls.json';
+// import * as default_room_json from './LShape.json';
 var CameraButtons = function(blueprint3d) {
 
   var orbitControls = blueprint3d.three.controls;
@@ -541,26 +561,7 @@ $(document).ready(function() {
 
 
 
-import JSZip from "jszip";
-import FileSaver from 'file-saver';
-import FPS from 'fps-now';
-import { BlueprintJS } from './scripts/blueprint.js';
-import { EVENT_LOADED, EVENT_NOTHING_2D_SELECTED, EVENT_CORNER_2D_CLICKED, EVENT_WALL_2D_CLICKED, EVENT_ROOM_2D_CLICKED, EVENT_WALL_CLICKED, EVENT_ROOM_CLICKED, EVENT_NO_ITEM_SELECTED, EVENT_ITEM_SELECTED, EVENT_GLTF_READY } from './scripts/core/events.js';
-import { Configuration, configDimUnit, viewBounds } from './scripts/core/configuration.js';
-import { dimMeter, TEXTURE_NO_PREVIEW } from './scripts/core/constants.js';
-import QuickSettings from 'quicksettings';
 
-import { Dimensioning } from './scripts/core/dimensioning.js';
-import { ParametricsInterface } from './scripts/ParametricsInterface.js';
-
-import * as floor_textures_json from './floor_textures.json';
-import * as wall_textures_json from './wall_textures.json';
-// import * as default_room_json from './parametrics_items.json';
-// import * as default_room_json from './empty_room.json';
-// import * as default_room_json from './designWithBoundary.json';
-// import * as default_room_json from './designWithoutBoundary.json';
-import * as default_room_json from './designWithOrphanWalls.json';
-// import * as default_room_json from './LShape.json';
 
 const fps = FPS.of({x: 0, y: 0});
 fps.start();
