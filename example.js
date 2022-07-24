@@ -2,7 +2,7 @@
 /*
  * Camera Buttons
  */
-import {index} from 'js/index.js'
+//import {index} from 'js/index.js'
 var CameraButtons = function(blueprint3d) {
 
   var orbitControls = blueprint3d.three.controls;
