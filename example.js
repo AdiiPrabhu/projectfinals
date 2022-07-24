@@ -3,9 +3,6 @@
  * Camera Buttons
  */
 
-import JSZip from "jszip";
-import FileSaver from 'file-saver';
-import FPS from 'fps-now';
 import { BlueprintJS } from './scripts/blueprint.js';
 import { EVENT_LOADED, EVENT_NOTHING_2D_SELECTED, EVENT_CORNER_2D_CLICKED, EVENT_WALL_2D_CLICKED, EVENT_ROOM_2D_CLICKED, EVENT_WALL_CLICKED, EVENT_ROOM_CLICKED, EVENT_NO_ITEM_SELECTED, EVENT_ITEM_SELECTED, EVENT_GLTF_READY } from './scripts/core/events.js';
 import { Configuration, configDimUnit, viewBounds } from './scripts/core/configuration.js';
